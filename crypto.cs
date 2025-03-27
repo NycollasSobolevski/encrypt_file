@@ -1,9 +1,12 @@
 using System.Security.Cryptography;
 using System.Text;
 
-public class Crypto (string key)
+public class Crypto
 {
-    private string passKey = key;
+    private string passKey;
+
+    public Crypto (string key) 
+        => passKey = ReadKeyFile(key);
 
     public void Encrypt (string inputFile, string outputFile)
     {
@@ -64,5 +67,19 @@ public class Crypto (string key)
 
         if(!Directory.Exists(res))
             Directory.CreateDirectory(res);
+    }
+
+    private string ReadKeyFile(string filePath)
+    {
+        if(!File.Exists(filePath))
+            throw new Exception("Key File not found!");
+
+        var result = File.ReadAllText(filePath)
+            ?? throw new Exception("Not found key in file!");
+
+        if(result.Length != 16)
+            throw new Exception("invalid key format! The key must have 16 bytes/characters");
+
+        return result;
     }
 }
