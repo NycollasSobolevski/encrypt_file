@@ -69,6 +69,12 @@ public class Crypto
             Directory.CreateDirectory(res);
     }
 
+    /// <summary>
+    /// Get the cryptography in the especified file
+    /// </summary>
+    /// <param name="filePath"></param>
+    /// <returns>Cryptography Key (string)</returns>
+    /// <exception cref="Exception"></exception>
     private string ReadKeyFile(string filePath)
     {
         if(!File.Exists(filePath))
